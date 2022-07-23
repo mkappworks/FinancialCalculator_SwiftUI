@@ -14,6 +14,9 @@
 		506AFF422886BFAE008FD8D7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AFF412886BFAE008FD8D7 /* HomeView.swift */; };
 		506AFF442886BFB7008FD8D7 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AFF432886BFB7008FD8D7 /* HelpView.swift */; };
 		506AFF462886BFC0008FD8D7 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AFF452886BFC0008FD8D7 /* HistoryView.swift */; };
+		5089E51A288B320C00472771 /* MortgageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089E519288B320C00472771 /* MortgageView.swift */; };
+		5089E51D288B326600472771 /* MortgageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089E51C288B326600472771 /* MortgageViewModel.swift */; };
+		5089E522288C885C00472771 /* Monetary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089E521288C885C00472771 /* Monetary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		506AFF412886BFAE008FD8D7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		506AFF432886BFB7008FD8D7 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		506AFF452886BFC0008FD8D7 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		5089E519288B320C00472771 /* MortgageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MortgageView.swift; sourceTree = "<group>"; };
+		5089E51C288B326600472771 /* MortgageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MortgageViewModel.swift; sourceTree = "<group>"; };
+		5089E521288C885C00472771 /* Monetary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monetary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,13 +63,11 @@
 		506AFF322886BF94008FD8D7 /* FinancialCalculator_SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				5089E51F288C882600472771 /* Views */,
+				5089E51E288C881F00472771 /* Models */,
 				506AFF332886BF94008FD8D7 /* FinancialCalculator_SwiftUIApp.swift */,
-				506AFF352886BF94008FD8D7 /* ContentView.swift */,
 				506AFF372886BF96008FD8D7 /* Assets.xcassets */,
 				506AFF392886BF96008FD8D7 /* Preview Content */,
-				506AFF412886BFAE008FD8D7 /* HomeView.swift */,
-				506AFF432886BFB7008FD8D7 /* HelpView.swift */,
-				506AFF452886BFC0008FD8D7 /* HistoryView.swift */,
 			);
 			path = FinancialCalculator_SwiftUI;
 			sourceTree = "<group>";
@@ -74,6 +78,43 @@
 				506AFF3A2886BF96008FD8D7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5089E51B288B324D00472771 /* Mortgage */ = {
+			isa = PBXGroup;
+			children = (
+				5089E519288B320C00472771 /* MortgageView.swift */,
+				5089E51C288B326600472771 /* MortgageViewModel.swift */,
+			);
+			path = Mortgage;
+			sourceTree = "<group>";
+		};
+		5089E51E288C881F00472771 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5089E520288C883900472771 /* New Group */,
+				5089E521288C885C00472771 /* Monetary.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5089E51F288C882600472771 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				506AFF352886BF94008FD8D7 /* ContentView.swift */,
+				5089E51B288B324D00472771 /* Mortgage */,
+				506AFF412886BFAE008FD8D7 /* HomeView.swift */,
+				506AFF432886BFB7008FD8D7 /* HelpView.swift */,
+				506AFF452886BFC0008FD8D7 /* HistoryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5089E520288C883900472771 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,6 +187,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5089E522288C885C00472771 /* Monetary.swift in Sources */,
+				5089E51D288B326600472771 /* MortgageViewModel.swift in Sources */,
+				5089E51A288B320C00472771 /* MortgageView.swift in Sources */,
 				506AFF422886BFAE008FD8D7 /* HomeView.swift in Sources */,
 				506AFF442886BFB7008FD8D7 /* HelpView.swift in Sources */,
 				506AFF462886BFC0008FD8D7 /* HistoryView.swift in Sources */,
