@@ -8,9 +8,25 @@
 import SwiftUI
 
 struct HistoryView: View {
+    @StateObject private var coreDataViewModel = CoreDataViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            NavigationView{
+                List{
+                    ForEach(coreDataViewModel.savedEntities, id:\.self){entry in
+                        Text("Future value \(entry.futureValue)")
+                    }
+                }
+            }
+            .onAppear{
+                coreDataViewModel.fetchAllMonetary()
+        }
+            
+            if coreDataViewModel.isLoading { LoadingView() }
+        }
     }
+        
 }
 
 struct HistoryView_Previews: PreviewProvider {
