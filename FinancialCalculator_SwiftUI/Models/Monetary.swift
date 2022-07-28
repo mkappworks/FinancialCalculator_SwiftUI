@@ -12,8 +12,8 @@ struct Monetary: Identifiable {
     var numberOfPayment: Int
     var interestRate: Double
     var presentValue: Double
-    var payment: Double?
     var futureValue: Double
+    var payment: Double?
 }
 
 
