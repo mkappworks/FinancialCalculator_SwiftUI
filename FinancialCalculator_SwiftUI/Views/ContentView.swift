@@ -32,12 +32,16 @@ struct ContentView: View {
                 .background(.gray)
                 
             }
+        
         }
     }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .previewInterfaceOrientation(.portraitUpsideDown)
+        }
     }
 }
 
