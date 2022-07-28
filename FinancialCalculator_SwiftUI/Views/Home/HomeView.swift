@@ -66,9 +66,7 @@ struct HomeView: View {
                     }
                     
                     Button("Calculate"){
-                        print("calculating started")
                         viewModel.calculateParameter()
-                        print("calculating finished")
                         
                     }
                     .buttonStyle(BorderlessButtonStyle())
@@ -86,7 +84,6 @@ struct HomeView: View {
                         }
                         
                         Button{
-                            print("reset")
                             viewModel.resetCalculationParameter()
                         }label: {
                             Text("Reset")
