@@ -12,6 +12,7 @@ struct LabeledValueField<T>: View {
     @Binding var value: T
     var isDecimalPadEnabled: Bool
     @Binding var calculationParameter: CalculationParameter
+    var fieldUnit: String
     
     let decimalFormatter: NumberFormatter = {
             let formatter = NumberFormatter()
@@ -20,9 +21,11 @@ struct LabeledValueField<T>: View {
         }()
     
     var body: some View {
-        HStack(spacing: 20){
+        HStack{
             Text(fieldTitle)
-                .frame(width: 175, alignment: .leading)
+                .frame(width: 120, alignment: .leading)
+            Text(fieldUnit)
+                .frame(width: 80, alignment: .leading)
             TextField(fieldTitle,value: $value,
                       formatter: isDecimalPadEnabled ?
                 decimalFormatter : NumberFormatter())
