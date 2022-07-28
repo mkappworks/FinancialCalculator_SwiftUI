@@ -9,29 +9,31 @@ import Foundation
 
 struct Monetary: Identifiable {
     var id = UUID()
-    let numberOfPayment: Int
-    let interestRate: Double
-    let presentValue: Double
-    let payment: Double
-    let futureValue: Double
+    var numberOfPayment: Int
+    var interestRate: Double
+    var presentValue: Double
+    var payment: Double?
+    var futureValue: Double
 }
 
-//protocol MonetaryType {}
 
 enum CalculationParameter: String, CaseIterable{
     case numberOfPayment = "Number Of Payment"
     case interestRate = "Interest Rate"
     case presentValue = "Present Value"
-    case payment = "Payment"
     case futureValue = "Future Value"
+    case payment = "Payment"
 }
 
-enum LoanMonetaryType: String, CaseIterable{
+
+enum MonetaryType: String, CaseIterable{
     case Loan = "Loan"
     case Mortgage = "Mortgage"
+    case Saving = "Saving"
+    case CompoundSaving = "Compound Saving"
 }
 
-enum SavingMonetaryType: String, CaseIterable{
-    case Saving = "Saving"
-    case CompoundInterestSaving = "Compound Interest Saving"
+enum DepositType: String, CaseIterable{
+    case Beginning
+    case End
 }
