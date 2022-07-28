@@ -125,6 +125,44 @@ final class HomeViewModel: ObservableObject{
             return
         }
         
+        let compoundInterestForPrincipal: Double = calculateFutureValueWithOutContribution()
+        var futureValueWithContribution: Double = 0.0
+
+        if(monetaryType != MonetaryType.CompoundSaving && isDepositMadeInEnd){
+            futureValueWithContribution = calculateFutureValueWithContributionAtEnd()
+        }
+        
+        if(monetaryType != MonetaryType.CompoundSaving && !isDepositMadeInEnd){
+            futureValueWithContribution = calculateFutureValueWithContributionAtBegin()
+        }
+        
+        self.monetary.futureValue = compoundInterestForPrincipal + futureValueWithContribution
+
+    }
+    
+    private func calculateCompoundInterestMultipler() -> Double{
+        let a: Double = (self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime))) + 1
+        let b: Double = Double(interestCompoundedPerUnitTime) * Double(self.monetary.numberOfPayment)
+        
+        return pow(a, b)
+    }
+    
+    private func calculateFutureValueWithOutContribution() -> Double{     
+        return self.monetary.presentValue * calculateCompoundInterestMultipler()
+    }
+    
+    private func calculateFutureValueWithContributionAtEnd() -> Double{
+        let a: Double = calculateCompoundInterestMultipler() - 1
+        let b: Double = self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime))
+        
+        return ((a/b) * (self.monetary.payment ?? 0.0))
+    }
+    
+    private func calculateFutureValueWithContributionAtBegin() -> Double{
+        let a: Double = calculateFutureValueWithContributionAtEnd()
+        let b: Double = self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime)) + 1
+        
+        return a * b
     }
     
     
