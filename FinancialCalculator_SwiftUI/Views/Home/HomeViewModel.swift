@@ -56,7 +56,13 @@ final class HomeViewModel: ObservableObject{
         let a: Double = log(self.monetary.futureValue/self.monetary.presentValue)
         let b: Double = log(1.0 + self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime))) * Double(interestCompoundedPerUnitTime)
         
-        self.monetary.numberOfPayment = Int((a/b).rounded(.up))
+        
+        if(monetaryType == MonetaryType.Mortgage){
+            self.monetary.numberOfPayment = Int((a/(b * 12)).rounded(.up))
+        } else {
+            self.monetary.numberOfPayment = Int((a/b).rounded(.up))
+        }
+        
         
     }
     
@@ -73,7 +79,9 @@ final class HomeViewModel: ObservableObject{
             return
         }
         
-        let a: Double = 1.0/(Double(interestCompoundedPerUnitTime) * Double(self.monetary.numberOfPayment))
+        let timeInMonths: Double = getNumberOfPaymentsInMonths()
+        
+        let a: Double = 1.0/(Double(interestCompoundedPerUnitTime) * timeInMonths)
         
         let b: Double = self.monetary.futureValue/self.monetary.presentValue
         
@@ -93,14 +101,21 @@ final class HomeViewModel: ObservableObject{
             return
         }
         
+        let timeInMonths: Double = getNumberOfPaymentsInMonths()
+        
         let a: Double = (self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime))) + 1
-        let b: Double = Double(interestCompoundedPerUnitTime) * Double(self.monetary.numberOfPayment)
+        let b: Double = Double(interestCompoundedPerUnitTime) * timeInMonths
         
         self.monetary.presentValue = self.monetary.futureValue / pow(a, b)
         
     }
     
     private func calculatePayment(){
+        
+        if(monetaryType == MonetaryType.CompoundSaving){
+            return
+        }
+        
         checkValidNumberOfPayment()
         checkValidInterestRate()
         checkValidPresentValue()
@@ -110,6 +125,21 @@ final class HomeViewModel: ObservableObject{
             assignErrorMessage()
             return
         }
+        
+        
+        let compoundInterestForPrincipal: Double = calculateFutureValueWithOutContribution()
+        let futureValueWithContribution: Double = self.monetary.futureValue
+        var contributionMultipler: Double!
+
+        if(monetaryType != MonetaryType.CompoundSaving && isDepositMadeInEnd){
+            contributionMultipler = calculateFutureValueWithContributionAtEndMultipler()
+        }
+        
+        if(monetaryType != MonetaryType.CompoundSaving && !isDepositMadeInEnd){
+            contributionMultipler = calculateFutureValueWithContributionAtBeginMultipler()
+        }
+        
+        self.monetary.payment = (futureValueWithContribution - compoundInterestForPrincipal)/(contributionMultipler)
     }
     
     private func calculateFutureValue(){
@@ -129,11 +159,11 @@ final class HomeViewModel: ObservableObject{
         var futureValueWithContribution: Double = 0.0
 
         if(monetaryType != MonetaryType.CompoundSaving && isDepositMadeInEnd){
-            futureValueWithContribution = calculateFutureValueWithContributionAtEnd()
+            futureValueWithContribution = calculateFutureValueWithContributionAtEndMultipler() * self.monetary.payment!
         }
         
         if(monetaryType != MonetaryType.CompoundSaving && !isDepositMadeInEnd){
-            futureValueWithContribution = calculateFutureValueWithContributionAtBegin()
+            futureValueWithContribution = calculateFutureValueWithContributionAtBeginMultipler() * self.monetary.payment!
         }
         
         self.monetary.futureValue = compoundInterestForPrincipal + futureValueWithContribution
@@ -141,8 +171,10 @@ final class HomeViewModel: ObservableObject{
     }
     
     private func calculateCompoundInterestMultipler() -> Double{
+        let timeInMonths: Double = getNumberOfPaymentsInMonths()
+        
         let a: Double = (self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime))) + 1
-        let b: Double = Double(interestCompoundedPerUnitTime) * Double(self.monetary.numberOfPayment)
+        let b: Double = Double(interestCompoundedPerUnitTime) * timeInMonths
         
         return pow(a, b)
     }
@@ -151,15 +183,15 @@ final class HomeViewModel: ObservableObject{
         return self.monetary.presentValue * calculateCompoundInterestMultipler()
     }
     
-    private func calculateFutureValueWithContributionAtEnd() -> Double{
+    private func calculateFutureValueWithContributionAtEndMultipler() -> Double{
         let a: Double = calculateCompoundInterestMultipler() - 1
         let b: Double = self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime))
         
-        return ((a/b) * (self.monetary.payment ?? 0.0))
+        return a/b
     }
     
-    private func calculateFutureValueWithContributionAtBegin() -> Double{
-        let a: Double = calculateFutureValueWithContributionAtEnd()
+    private func calculateFutureValueWithContributionAtBeginMultipler() -> Double{
+        let a: Double = calculateFutureValueWithContributionAtEndMultipler()
         let b: Double = self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime)) + 1
         
         return a * b
@@ -200,6 +232,18 @@ final class HomeViewModel: ObservableObject{
         let joinedFieldName = self.invalidFields.joined(separator:",")
         
         alertMessage = "Please enter valid \(joinedFieldName) to calculate the desired parameter"
+    }
+    
+    private func getNumberOfPaymentsInMonths()-> Double{
+        var timeInMonths: Double
+        
+        if(monetaryType ==  MonetaryType.Mortgage){
+            timeInMonths = Double(self.monetary.numberOfPayment) * 12
+        }else{
+            timeInMonths = Double(self.monetary.numberOfPayment)
+        }
+        
+        return timeInMonths
     }
     
 }
