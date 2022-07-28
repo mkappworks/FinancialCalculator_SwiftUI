@@ -8,7 +8,7 @@ import Foundation
 
 
 
-final class HomeViewModel: ObservableObject{
+final class CalculationViewModel: ObservableObject{
     
     @Published var alertMessage: String = ""
     @Published var monetaryType: MonetaryType = MonetaryType.Loan

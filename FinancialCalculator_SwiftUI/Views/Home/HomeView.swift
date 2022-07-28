@@ -10,15 +10,15 @@ import SwiftUI
 
 struct HomeView: View {
 
-    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var calculationViewModel = CalculationViewModel()
+    @StateObject private var coreDataViewModel = CoreDataViewModel()
     
     @ViewBuilder
     var body: some View {
         NavigationView{
-            
                 Form{
                     Section("Select Monetary Type"){
-                        Picker("Monetary Type", selection: $viewModel.monetaryType) {
+                        Picker("Monetary Type", selection: $calculationViewModel.monetaryType) {
                             ForEach(MonetaryType.allCases, id: \.self) {
                                 Text($0.rawValue)
                                 .font(.system(size: 20))
@@ -26,9 +26,9 @@ struct HomeView: View {
                             }
                             
                         }
-                        .onChange(of: viewModel.monetaryType, perform: { value in
-                            if (value == MonetaryType.CompoundSaving && viewModel.calculationParameter == CalculationParameter.payment){
-                                viewModel.calculationParameter = CalculationParameter.futureValue
+                        .onChange(of: calculationViewModel.monetaryType, perform: { value in
+                            if (value == MonetaryType.CompoundSaving && calculationViewModel.calculationParameter == CalculationParameter.payment){
+                                calculationViewModel.calculationParameter = CalculationParameter.futureValue
                             }
                         })
                         .frame(height: 50)
@@ -37,8 +37,8 @@ struct HomeView: View {
                     }
                     
                     Section("Select Calculation Parameter"){
-                        Picker("Calculation Parameter", selection: $viewModel.calculationParameter) {ForEach(CalculationParameter.allCases, id: \.self) {
-                            if(viewModel.monetaryType != MonetaryType.CompoundSaving || $0 != CalculationParameter.payment){
+                        Picker("Calculation Parameter", selection: $calculationViewModel.calculationParameter) {ForEach(CalculationParameter.allCases, id: \.self) {
+                            if(calculationViewModel.monetaryType != MonetaryType.CompoundSaving || $0 != CalculationParameter.payment){
                                 Text($0.rawValue)
                                     .font(.system(size: 20))
                             }
@@ -50,41 +50,41 @@ struct HomeView: View {
                         
                     }
                     
-                    CalculationParameterView(calculationParameter: $viewModel.calculationParameter, monetaryType: $viewModel.monetaryType,
-                        monetary: $viewModel.monetary
+                    CalculationParameterView(calculationParameter: $calculationViewModel.calculationParameter, monetaryType: $calculationViewModel.monetaryType,
+                        monetary: $calculationViewModel.monetary
                     )
                     
-                    if(viewModel.monetaryType != MonetaryType.CompoundSaving){
+                    if(calculationViewModel.monetaryType != MonetaryType.CompoundSaving){
                         Section("Select When Deposits are Made") {
-                            Toggle("\(viewModel.depositType.rawValue)", isOn: $viewModel.isDepositMadeInEnd)
+                            Toggle("\(calculationViewModel.depositType.rawValue)", isOn: $calculationViewModel.isDepositMadeInEnd)
                                 .toggleStyle(SwitchToggleStyle(tint: .red))
-                                .onChange(of: viewModel.isDepositMadeInEnd) { value in
-                                    viewModel.depositType =  value == true ? DepositType.End : DepositType.Beginning
+                                .onChange(of: calculationViewModel.isDepositMadeInEnd) { value in
+                                    calculationViewModel.depositType =  value == true ? DepositType.End : DepositType.Beginning
                                 }
                             
                         }
                     }
                     
                     Button("Calculate"){
-                        viewModel.calculateParameter()
+                        calculationViewModel.calculateParameter()
                         
                     }
                     .buttonStyle(BorderlessButtonStyle())
                 
                     
                 }
-                .navigationTitle(viewModel.monetaryType.rawValue)
+                .navigationTitle(calculationViewModel.monetaryType.rawValue)
                 .onTapGesture{hideKeyboard()}
                 .toolbar{
                     ToolbarItemGroup(placement: .navigationBarTrailing){
                         Button{
-                            print("Save Tapped")
+                            coreDataViewModel.saveMonetaryData(monetary: calculationViewModel.monetary, monetaryType: calculationViewModel.monetaryType)
                         }label: {
                             Text("Save")
                         }
                         
                         Button{
-                            viewModel.resetCalculationParameter()
+                            calculationViewModel.resetCalculationParameter()
                         }label: {
                             Text("Reset")
                         }
