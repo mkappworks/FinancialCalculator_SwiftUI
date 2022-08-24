@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 
 final class CoreDataViewModel: ObservableObject{
@@ -30,7 +31,8 @@ final class CoreDataViewModel: ObservableObject{
         let request = NSFetchRequest<MonetaryEntity>(entityName: "MonetaryEntity")
         
         do{
-          savedEntities = try container.viewContext.fetch(request)
+          savedEntities = try container.viewContext.fetch(request)            
+         
         } catch let error {
             print("Error fetch \(error)")
         }
@@ -39,25 +41,41 @@ final class CoreDataViewModel: ObservableObject{
         
     }
     
-    func saveMonetaryData(monetary: Monetary, monetaryType: MonetaryType){
-        self.isLoading = true
-        
+    func addMonetaryData(monetary: Monetary, monetaryType: MonetaryType){
         let newMonetaryEntry = MonetaryEntity(context: container.viewContext)
         newMonetaryEntry.id = monetary.id
-        newMonetaryEntry.payment = monetary.payment ?? 0.0
+        newMonetaryEntry.payment = monetary.payment
         newMonetaryEntry.futureValue = monetary.futureValue
         newMonetaryEntry.presentValue = monetary.presentValue
         newMonetaryEntry.interestRate = monetary.interestRate
-        newMonetaryEntry.numberOfPayment = Int16(monetary.numberOfPayment)
+        newMonetaryEntry.numberOfPayment = Int64(monetary.numberOfPayment)
         newMonetaryEntry.monetaryType = monetaryType.rawValue
+
+        saveMonetaryData()
+    }
+    
+    func saveMonetaryData(){
+        self.isLoading = true
         
         do{
           try container.viewContext.save()
+          fetchAllMonetary()
         } catch let error {
             print("Error fetch \(error)")
         }
         
         self.isLoading = false
+    }
+    
+    func deleteMonetaryData(indexSet: IndexSet){
+        
+        guard let index = indexSet.first else {return}
+        let entity = savedEntities[index]
+        
+        container.viewContext.delete(entity)
+        
+        saveMonetaryData()
+        
     }
     
     

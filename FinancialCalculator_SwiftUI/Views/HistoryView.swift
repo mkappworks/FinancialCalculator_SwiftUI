@@ -15,10 +15,13 @@ struct HistoryView: View {
             NavigationView{
                 List{
                     ForEach(coreDataViewModel.savedEntities, id:\.self){entry in
-                        Text("Future value \(entry.futureValue)")
+                        MonetaryEntityCell(monetaryEntity: entry)
                     }
+                    .onDelete(perform: coreDataViewModel.deleteMonetaryData)
                 }
+                .navigationTitle("History")
             }
+            
             .onAppear{
                 coreDataViewModel.fetchAllMonetary()
         }

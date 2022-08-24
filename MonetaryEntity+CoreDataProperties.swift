@@ -16,13 +16,13 @@ extension MonetaryEntity {
         return NSFetchRequest<MonetaryEntity>(entityName: "MonetaryEntity")
     }
 
-    @NSManaged public var monetaryType: String?
-    @NSManaged public var id: UUID?
-    @NSManaged public var presentValue: Double
     @NSManaged public var futureValue: Double
-    @NSManaged public var payment: Double
-    @NSManaged public var numberOfPayment: Int16
+    @NSManaged public var id: UUID
     @NSManaged public var interestRate: Double
+    @NSManaged public var monetaryType: String
+    @NSManaged public var numberOfPayment: Int64
+    @NSManaged public var payment: Double
+    @NSManaged public var presentValue: Double
 
 }
 

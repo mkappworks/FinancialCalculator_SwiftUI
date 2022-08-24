@@ -10,49 +10,84 @@ import Foundation
 
 final class CalculationViewModel: ObservableObject{
     
+    @Published var isPaymentAvailable: Bool =  false
     @Published var alertMessage: String = ""
+    @Published var isAlertMessage: Bool=false
     @Published var monetaryType: MonetaryType = MonetaryType.Loan
     @Published var isDepositMadeInEnd: Bool = true
     @Published var depositType: DepositType = DepositType.End
     @Published var calculationParameter: CalculationParameter = CalculationParameter.numberOfPayment
     
-    @Published var monetary: Monetary = Monetary(numberOfPayment: 1, interestRate: 0.0, presentValue: 0.0, payment: 0.0, futureValue: 0.0)
+    @Published var monetary: Monetary = Monetary(numberOfPayment: 1, interestRate: 0.0, presentValue: 0.0, futureValue: 0.0, payment: 0.0 )
     
     var invalidFields: [String] = [""]
     var interestCompoundedPerUnitTime: Int = 1
     
+    /**
+     Checking if the payment is needed as a input or output parameter
+    
+     Only if the MonetaryType is not CompoundSaving and the CalculationParameter is futureValue or payment the
+     
+     payment parameter is available in the UI
+     **/
+    func checkIfPaymentAvailable(){
+        if(self.monetaryType == MonetaryType.CompoundSaving){
+            self.isPaymentAvailable = false
+            return
+        }
+        
+        if(self.monetaryType != MonetaryType.CompoundSaving && self.calculationParameter == CalculationParameter.futureValue){
+            self.isPaymentAvailable = true
+            return
+        }
+        
+        if(self.monetaryType != MonetaryType.CompoundSaving && self.calculationParameter == CalculationParameter.payment){
+            self.isPaymentAvailable = true
+            return
+        }
+        
+        self.isPaymentAvailable = false
+    }
     
     func resetCalculationParameter(){
-        print("reset")
-        self.monetary = Monetary(numberOfPayment: 1, interestRate: 0.0, presentValue: 0.0, payment: 0.0, futureValue: 0.0)
+        self.monetaryType = MonetaryType.Loan
+        self.calculationParameter = CalculationParameter.numberOfPayment
+        self.monetary = Monetary(numberOfPayment: 1, interestRate: 0.0, presentValue: 0.0, futureValue: 0.0, payment: 0.0)
     }
     
     func calculateParameter(){
         invalidFields = [""]
-
+        alertMessage = ""
+        isAlertMessage = false
         
-        switch self.calculationParameter{
-        case .numberOfPayment: calculateNumberOfPayment()
-        case .interestRate: calculateInterestRate()
-        case .presentValue: calculatePresentValue()
-        case .payment: calculatePayment()
-        case .futureValue: calculateFutureValue()
-        }
+     switch self.calculationParameter{
+            case .numberOfPayment: calculateNumberOfPayment()
+            case .interestRate: calculateInterestRate()
+            case .presentValue: calculatePresentValue()
+            case .payment: calculatePayment()
+            case .futureValue: calculateFutureValue()
+            }
     }
     
     private func calculateNumberOfPayment(){
-        if(monetaryType != MonetaryType.CompoundSaving){
-            checkValidPayment()
-        }
+        /**
+         Checking if the numberOfPayments has all the input parameter to calculate it
+         if atleast ones of the neccessary parameters are missing, will return from the func with an
+         error message
+         */
         checkValidInterestRate()
         checkValidPresentValue()
         checkValidFutureValue()
         
         if(self.invalidFields.count > 1){
             assignErrorMessage()
+            print(self.invalidFields)
             return
         }
         
+        /**
+         Calculation broken down in bit sizes
+         */
         let a: Double = log(self.monetary.futureValue/self.monetary.presentValue)
         let b: Double = log(1.0 + self.monetary.interestRate/(100 * Double(interestCompoundedPerUnitTime))) * Double(interestCompoundedPerUnitTime)
         
@@ -62,14 +97,11 @@ final class CalculationViewModel: ObservableObject{
         } else {
             self.monetary.numberOfPayment = Int((a/b).rounded(.up))
         }
-        
+ 
         
     }
     
     private func calculateInterestRate(){
-        if(monetaryType != MonetaryType.CompoundSaving){
-            checkValidPayment()
-        }
         checkValidNumberOfPayment()
         checkValidPresentValue()
         checkValidFutureValue()
@@ -89,9 +121,6 @@ final class CalculationViewModel: ObservableObject{
     }
     
     private func calculatePresentValue(){
-        if(monetaryType != MonetaryType.CompoundSaving){
-            checkValidPayment()
-        }
         checkValidNumberOfPayment()
         checkValidInterestRate()
         checkValidFutureValue()
@@ -111,10 +140,7 @@ final class CalculationViewModel: ObservableObject{
     }
     
     private func calculatePayment(){
-        
-        if(monetaryType == MonetaryType.CompoundSaving){
-            return
-        }
+        if(isPaymentAvailable){checkValidPayment()}
         
         checkValidNumberOfPayment()
         checkValidInterestRate()
@@ -130,7 +156,7 @@ final class CalculationViewModel: ObservableObject{
         let compoundInterestForPrincipal: Double = calculateFutureValueWithOutContribution()
         let futureValueWithContribution: Double = self.monetary.futureValue
         var contributionMultipler: Double!
-
+        
         if(monetaryType != MonetaryType.CompoundSaving && isDepositMadeInEnd){
             contributionMultipler = calculateFutureValueWithContributionAtEndMultipler()
         }
@@ -143,9 +169,8 @@ final class CalculationViewModel: ObservableObject{
     }
     
     private func calculateFutureValue(){
-        if(monetaryType != MonetaryType.CompoundSaving){
-            checkValidPayment()
-        }
+        if(isPaymentAvailable){checkValidPayment()}
+        
         checkValidNumberOfPayment()
         checkValidInterestRate()
         checkValidPresentValue()
@@ -157,17 +182,17 @@ final class CalculationViewModel: ObservableObject{
         
         let compoundInterestForPrincipal: Double = calculateFutureValueWithOutContribution()
         var futureValueWithContribution: Double = 0.0
-
+        
         if(monetaryType != MonetaryType.CompoundSaving && isDepositMadeInEnd){
-            futureValueWithContribution = calculateFutureValueWithContributionAtEndMultipler() * self.monetary.payment!
+            futureValueWithContribution = calculateFutureValueWithContributionAtEndMultipler() * self.monetary.payment
         }
         
         if(monetaryType != MonetaryType.CompoundSaving && !isDepositMadeInEnd){
-            futureValueWithContribution = calculateFutureValueWithContributionAtBeginMultipler() * self.monetary.payment!
+            futureValueWithContribution = calculateFutureValueWithContributionAtBeginMultipler() * self.monetary.payment
         }
         
         self.monetary.futureValue = compoundInterestForPrincipal + futureValueWithContribution
-
+        
     }
     
     private func calculateCompoundInterestMultipler() -> Double{
@@ -179,7 +204,7 @@ final class CalculationViewModel: ObservableObject{
         return pow(a, b)
     }
     
-    private func calculateFutureValueWithOutContribution() -> Double{     
+    private func calculateFutureValueWithOutContribution() -> Double{
         return self.monetary.presentValue * calculateCompoundInterestMultipler()
     }
     
@@ -231,7 +256,10 @@ final class CalculationViewModel: ObservableObject{
     private func assignErrorMessage(){
         let joinedFieldName = self.invalidFields.joined(separator:",")
         
-        alertMessage = "Please enter valid \(joinedFieldName) to calculate the desired parameter"
+        self.alertMessage = "Please enter valid \(joinedFieldName) to calculate the desired parameter"
+        
+        self.isAlertMessage = true
+        
     }
     
     private func getNumberOfPaymentsInMonths()-> Double{

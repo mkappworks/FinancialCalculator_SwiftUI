@@ -11,6 +11,7 @@ struct CalculationParameterView: View {
     @Binding var calculationParameter: CalculationParameter
     @Binding var monetaryType: MonetaryType
     @Binding var monetary: Monetary
+    @Binding var isPaymentAvailable: Bool
     
     @ViewBuilder
     var body: some View {
@@ -24,7 +25,7 @@ struct CalculationParameterView: View {
             LabeledValueField(fieldTitle: "\(CalculationParameter.futureValue.rawValue)", value: $monetary.futureValue, isDecimalPadEnabled: true, calculationParameter:
                                 $calculationParameter, fieldUnit: "(LKR)")
             
-            if(monetaryType != MonetaryType.CompoundSaving){
+            if(isPaymentAvailable){
                 LabeledValueField(fieldTitle: "\(CalculationParameter.payment.rawValue)", value: $monetary.payment, isDecimalPadEnabled: true, calculationParameter: $calculationParameter, fieldUnit: "(LKR)")
             }
             

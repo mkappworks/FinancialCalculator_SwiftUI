@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "11"
             endingLineNumber = "11"
-            landmarkName = "HomeViewModel"
+            landmarkName = "CalculationViewModel"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50320AF528923E1200AB26EC /* Monetary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 50320AF328923E1200AB26EC /* Monetary.xcdatamodeld */; };
+		50320AFF289240FF00AB26EC /* CoreDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320AFE289240FF00AB26EC /* CoreDataViewModel.swift */; };
+		50320B032892491400AB26EC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320B022892491400AB26EC /* LoadingView.swift */; };
+		50320B152892C7C900AB26EC /* MonetaryEntityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320B142892C7C900AB26EC /* MonetaryEntityCell.swift */; };
+		50320B1A2892E80D00AB26EC /* MonetaryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320B182892E80D00AB26EC /* MonetaryEntity+CoreDataClass.swift */; };
+		50320B1B2892E80D00AB26EC /* MonetaryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320B192892E80D00AB26EC /* MonetaryEntity+CoreDataProperties.swift */; };
+		50320B1D2892F53200AB26EC /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320B1C2892F53200AB26EC /* Page.swift */; };
+		50320B1F2892F56500AB26EC /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320B1E2892F56500AB26EC /* PageView.swift */; };
+		50320B212892FD8700AB26EC /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50320B202892FD8700AB26EC /* AlertItem.swift */; };
 		506AFF342886BF94008FD8D7 /* FinancialCalculator_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AFF332886BF94008FD8D7 /* FinancialCalculator_SwiftUIApp.swift */; };
 		506AFF362886BF94008FD8D7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AFF352886BF94008FD8D7 /* ContentView.swift */; };
 		506AFF382886BF96008FD8D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506AFF372886BF96008FD8D7 /* Assets.xcassets */; };
@@ -17,10 +26,19 @@
 		5089E522288C885C00472771 /* Monetary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089E521288C885C00472771 /* Monetary.swift */; };
 		5089E5242891CF0A00472771 /* CalculationParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089E5232891CF0900472771 /* CalculationParameterView.swift */; };
 		5089E5262891CFA400472771 /* LabeledValueField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5089E5252891CFA400472771 /* LabeledValueField.swift */; };
-		509411622891DE1B00805270 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509411612891DE1B00805270 /* HomeViewModel.swift */; };
+		509411622891DE1B00805270 /* CalculationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509411612891DE1B00805270 /* CalculationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50320AF428923E1200AB26EC /* Monetary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Monetary.xcdatamodel; sourceTree = "<group>"; };
+		50320AFE289240FF00AB26EC /* CoreDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewModel.swift; sourceTree = "<group>"; };
+		50320B022892491400AB26EC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		50320B142892C7C900AB26EC /* MonetaryEntityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonetaryEntityCell.swift; sourceTree = "<group>"; };
+		50320B182892E80D00AB26EC /* MonetaryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MonetaryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		50320B192892E80D00AB26EC /* MonetaryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MonetaryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		50320B1C2892F53200AB26EC /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		50320B1E2892F56500AB26EC /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		50320B202892FD8700AB26EC /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		506AFF302886BF94008FD8D7 /* FinancialCalculator_SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinancialCalculator_SwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		506AFF332886BF94008FD8D7 /* FinancialCalculator_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialCalculator_SwiftUIApp.swift; sourceTree = "<group>"; };
 		506AFF352886BF94008FD8D7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,7 +50,7 @@
 		5089E521288C885C00472771 /* Monetary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monetary.swift; sourceTree = "<group>"; };
 		5089E5232891CF0900472771 /* CalculationParameterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationParameterView.swift; sourceTree = "<group>"; };
 		5089E5252891CFA400472771 /* LabeledValueField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledValueField.swift; sourceTree = "<group>"; };
-		509411612891DE1B00805270 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		509411612891DE1B00805270 /* CalculationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,13 +69,28 @@
 			children = (
 				5089E5232891CF0900472771 /* CalculationParameterView.swift */,
 				5089E5252891CFA400472771 /* LabeledValueField.swift */,
+				50320B022892491400AB26EC /* LoadingView.swift */,
+				50320B142892C7C900AB26EC /* MonetaryEntityCell.swift */,
+				50320B1E2892F56500AB26EC /* PageView.swift */,
+				50320B202892FD8700AB26EC /* AlertItem.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		50320B222892FE4100AB26EC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				509411612891DE1B00805270 /* CalculationViewModel.swift */,
+				50320AFE289240FF00AB26EC /* CoreDataViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		506AFF272886BF94008FD8D7 = {
 			isa = PBXGroup;
 			children = (
+				50320B182892E80D00AB26EC /* MonetaryEntity+CoreDataClass.swift */,
+				50320B192892E80D00AB26EC /* MonetaryEntity+CoreDataProperties.swift */,
 				506AFF322886BF94008FD8D7 /* FinancialCalculator_SwiftUI */,
 				506AFF312886BF94008FD8D7 /* Products */,
 			);
@@ -74,11 +107,13 @@
 		506AFF322886BF94008FD8D7 /* FinancialCalculator_SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				50320B222892FE4100AB26EC /* ViewModels */,
 				5089E51F288C882600472771 /* Views */,
 				5089E51E288C881F00472771 /* Models */,
 				506AFF332886BF94008FD8D7 /* FinancialCalculator_SwiftUIApp.swift */,
 				506AFF372886BF96008FD8D7 /* Assets.xcassets */,
 				506AFF392886BF96008FD8D7 /* Preview Content */,
+				50320AF328923E1200AB26EC /* Monetary.xcdatamodeld */,
 			);
 			path = FinancialCalculator_SwiftUI;
 			sourceTree = "<group>";
@@ -95,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				5089E521288C885C00472771 /* Monetary.swift */,
+				50320B1C2892F53200AB26EC /* Page.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -103,21 +139,12 @@
 			isa = PBXGroup;
 			children = (
 				50320AF22892128A00AB26EC /* Components */,
-				509411632891DE2400805270 /* Home */,
 				506AFF352886BF94008FD8D7 /* ContentView.swift */,
+				506AFF412886BFAE008FD8D7 /* HomeView.swift */,
 				506AFF432886BFB7008FD8D7 /* HelpView.swift */,
 				506AFF452886BFC0008FD8D7 /* HistoryView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		509411632891DE2400805270 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				509411612891DE1B00805270 /* HomeViewModel.swift */,
-				506AFF412886BFAE008FD8D7 /* HomeView.swift */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,13 +218,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				5089E522288C885C00472771 /* Monetary.swift in Sources */,
-				509411622891DE1B00805270 /* HomeViewModel.swift in Sources */,
+				509411622891DE1B00805270 /* CalculationViewModel.swift in Sources */,
+				50320B1D2892F53200AB26EC /* Page.swift in Sources */,
+				50320AF528923E1200AB26EC /* Monetary.xcdatamodeld in Sources */,
 				506AFF422886BFAE008FD8D7 /* HomeView.swift in Sources */,
+				50320B032892491400AB26EC /* LoadingView.swift in Sources */,
+				50320B1A2892E80D00AB26EC /* MonetaryEntity+CoreDataClass.swift in Sources */,
+				50320B212892FD8700AB26EC /* AlertItem.swift in Sources */,
 				506AFF442886BFB7008FD8D7 /* HelpView.swift in Sources */,
+				50320B1B2892E80D00AB26EC /* MonetaryEntity+CoreDataProperties.swift in Sources */,
+				50320AFF289240FF00AB26EC /* CoreDataViewModel.swift in Sources */,
 				5089E5262891CFA400472771 /* LabeledValueField.swift in Sources */,
 				506AFF462886BFC0008FD8D7 /* HistoryView.swift in Sources */,
+				50320B152892C7C900AB26EC /* MonetaryEntityCell.swift in Sources */,
 				506AFF362886BF94008FD8D7 /* ContentView.swift in Sources */,
 				506AFF342886BF94008FD8D7 /* FinancialCalculator_SwiftUIApp.swift in Sources */,
+				50320B1F2892F56500AB26EC /* PageView.swift in Sources */,
 				5089E5242891CF0A00472771 /* CalculationParameterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +433,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		50320AF328923E1200AB26EC /* Monetary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				50320AF428923E1200AB26EC /* Monetary.xcdatamodel */,
+			);
+			currentVersion = 50320AF428923E1200AB26EC /* Monetary.xcdatamodel */;
+			path = Monetary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 506AFF282886BF94008FD8D7 /* Project object */;
 }
